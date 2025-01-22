@@ -1,18 +1,16 @@
-name: Docker Image CI
+name: Docker build and publish image
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  [workflow_dispatch]
 
 jobs:
-
-  build:
-
+  publish_images:
     runs-on: ubuntu-24.04
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag reverse-ssh:$(date +%s)
+      - uses: actions/checkout@v4
+      - name: build image
+        run: docker build . --file Dockerfile --tag goldrador/reverse-ssh:latest
+      - name: push image
+        run: |
+          docker login -u goldrador -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push goldrador/reverse-ssh:latest
