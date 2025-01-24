@@ -9,4 +9,4 @@ ENV VPS_PORT=2022
 ENV VPS_IP=127.0.0.1
 
 # Befehl zum Starten des Tunnels
-CMD ["/bin/bash", "-c", "autossh -M 0 -f -N -T -L $LOCAL_PORT:localhost:22 sshuser@$VPS_IP -p $VPS_PORT -i /root/.ssh/id_rsa"]
+CMD ["/bin/bash", "-c", "autossh -M 0 -f -N -T -L $LOCAL_PORT:localhost:22 sshuser@$VPS_IP -p $VPS_PORT -i /root/.ssh/id_rsa -vvv"]
